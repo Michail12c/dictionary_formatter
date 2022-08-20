@@ -2,12 +2,12 @@ import { Button } from "@chakra-ui/button";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { useReducer, useState } from "react";
 import { COMMENT, EDIT, SELF_TRANSLATE, TRANSLATE } from "../../constants/common";
-import { FileService } from "../../services/GeneratedFile";
 import { WordData } from "../../types/editorTypes";
 import { useTransformerListWords } from "./hooks";
 import { EditIcon } from '@chakra-ui/icons'; 
 import EditableElement from "../../components/EditableElement";
 import AddElement from "../../components/AddElement";
+import { fileService } from "../../services";
 
 type PropsListView = {
   list: Array<string>;
@@ -26,9 +26,8 @@ function ListViewScreen({ list }: PropsListView) {
   console.log("list2", baseList);
 
   const generatedFile = () => {
-    let generate = new FileService();
     let text = baseList.join();
-    generate.saveFile(`${baseList[0]}`, [text]);
+    fileService.saveFile(`${baseList[0]}`, [text]); 
   };
 
   const handlerTranslate = (word: string) => {
